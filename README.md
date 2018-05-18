@@ -2,7 +2,7 @@
 Case study for myRetail
 
 Frameworks/DB used
--Spring Boot
+-Spring Boot \n
 -Spring Data Rest
 -mongoDb
 -Embedded mongoDb for JUnit Test class
