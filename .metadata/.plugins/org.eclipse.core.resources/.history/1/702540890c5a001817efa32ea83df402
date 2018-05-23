@@ -1,0 +1,16 @@
+package com.target.myRetail.ProductItem;
+
+import java.util.List;
+
+import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.data.repository.query.Param;
+
+
+
+
+
+public interface ProductPriceRepository extends MongoRepository<ProductItem, String> {
+	
+	Price findByLastName(String id);
+
+}

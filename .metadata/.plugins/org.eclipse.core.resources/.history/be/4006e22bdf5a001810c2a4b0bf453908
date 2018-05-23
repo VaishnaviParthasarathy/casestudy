@@ -1,0 +1,87 @@
+package com.target.myRetail.ProductItem;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
+
+import com.target.ProductDetails.ProductDetails;
+
+
+
+
+@RestController
+@RequestMapping(value="/myRetail")
+public class ProductController {
+	
+	@Autowired
+	ProductService productService;
+	
+	/**
+	 * updates an existing ProductItem 
+	 * @param productItem
+	 * @return 
+	 */
+	
+	@PostMapping(value="/products/{id}")
+	public ProductItem updateProductItem(@PathVariable("id") String id,@RequestBody ProductItem productItem){
+		productItem.setProductId(id);
+		return productService.updateProduct(productItem);
+	}
+	
+	/**
+	 * retrieves the product name and price based on id
+	 * and returns a ProductItem
+	 * @param id
+	 * @return
+	 */
+	@GetMapping(value="/products/{id}")
+	public ProductItem getProductItemById(@PathVariable("id") String id){
+		
+		ProductItem productItem=new ProductItem(id, 
+				getProductNameById(id),
+				productService.getProductItemById(id).getPrice());
+		
+		return productItem;
+	}
+
+	
+	/**retrieves the product name
+	 * makes a GET request to external API
+	 * @param id
+	 */
+	/*private String getProductNameById(String id) {
+		
+		
+		 RestTemplate restTemplate = new RestTemplate();
+		
+		 ProductDetails productDetail = restTemplate.getForObject("https://redsky.target.com/v2/pdp/tcin/{id}?excludes=taxonomy,price,promotion,bulk_ship,rating_and_review_reviews,rating_and_review_statistics,question_answer_statistics", 
+				 ProductDetails.class,id);
+		 
+		 if(productDetail!=null){
+			 return productDetail.getProduct().getItem().getProductDescription().getTitle();
+		 }
+		 return "no name found";
+	        
+	}
+*/
+	
+	private String getProductNameById(String id) {
+		
+		
+		 RestTemplate restTemplate = new RestTemplate();
+		
+		 ProductDetails productDetail = restTemplate.getForObject("http://localhost:8080/productDetails/{id}", 
+				 String.class,id);
+		 
+		 if(productDetail!=null){
+			 return productDetail.getProduct().getItem().getProductDescription().getTitle();
+		 }
+		 return "no name found";
+	        
+	}
+
+}

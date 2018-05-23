@@ -1,0 +1,19 @@
+package com.target.myRetail.Util;
+
+public class JsonToPojo {
+	
+	public static void main(String[] args) {  
+        String packageName="com.cooltrickshome";  
+        File inputJson= new File("."+File.separator+"input.json");  
+        File outputPojoDirectory=new File("."+File.separator+"convertedPojo");  
+        outputPojoDirectory.mkdirs();  
+        try {  
+             new JsonToPojo().convert2JSON(inputJson.toURI().toURL(), outputPojoDirectory, packageName, inputJson.getName().replace(".json", ""));  
+        } catch (IOException e) {  
+             // TODO Auto-generated catch block  
+             System.out.println("Encountered issue while converting to pojo: "+e.getMessage());  
+             e.printStackTrace();  
+        }  
+   }
+
+}

@@ -1,0 +1,3 @@
+server.port=8080
+productDetail.path=http://localhost:8080/productDetails/{id}
+externalapi.path=https://redsky.target.com/v2/pdp/tcin/{id}?excludes=taxonomy,price,promotion,bulk_ship,rating_and_review_reviews,rating_and_review_statistics,question_answer_statistics

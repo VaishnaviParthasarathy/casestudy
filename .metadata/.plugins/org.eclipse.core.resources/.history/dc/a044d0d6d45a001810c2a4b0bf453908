@@ -1,0 +1,139 @@
+package com.target.myRetail;
+
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringRunner;
+import static org.junit.Assert.*;
+
+import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
+import java.util.UUID;
+
+import org.junit.*;
+import org.springframework.data.mongodb.core.MongoTemplate;
+
+import com.mongodb.BasicDBObject;
+import com.mongodb.DB;
+import com.mongodb.DBCollection;
+import com.mongodb.DBObject;
+import com.mongodb.Mongo;
+import com.mongodb.MongoClient;
+import com.target.myRetail.ProductItem.Price;
+import com.target.myRetail.ProductItem.ProductItem;
+import com.target.myRetail.ProductItem.ProductItemRepository;
+
+import de.flapdoodle.embed.mongo.MongodExecutable;
+import de.flapdoodle.embed.mongo.MongodProcess;
+import de.flapdoodle.embed.mongo.MongodStarter;
+import de.flapdoodle.embed.mongo.config.MongodConfigBuilder;
+import de.flapdoodle.embed.mongo.config.Net;
+import de.flapdoodle.embed.mongo.config.RuntimeConfigBuilder;
+import de.flapdoodle.embed.mongo.distribution.Version;
+import de.flapdoodle.embed.mongo.tests.MongodForTestsFactory;
+import de.flapdoodle.embed.process.extract.UserTempNaming;
+import de.flapdoodle.embed.process.runtime.Network;
+
+@RunWith(SpringRunner.class)
+@SpringBootTest
+public class MyRetailApplicationTests {
+
+	
+	    private static final String LOCALHOST = "127.0.0.1";
+	    private static final String DB_NAME = "test";
+	    private static final int MONGO_TEST_PORT = 27028;
+
+	    @Autowired
+	    private ProductItemRepository repoImpl;
+
+	    private static MongodProcess mongoProcess;
+	   
+	    private MongodExecutable mongoExecutable;
+	    private MongodForTestsFactory factory;
+	    private MongoClient mongoClient;
+	    private DB db;
+
+
+	    @Before
+	    public void setUp() throws Exception {
+	    	initializeDB();
+	    	
+	    	factory = MongodForTestsFactory.with(Version.Main.DEVELOPMENT);
+
+	    	mongoClient = factory.newMongo();
+	    	
+			 db= mongoClient.getDB("test-" + UUID.randomUUID());
+	    }
+
+	    
+	    
+	    private void initializeDB() throws IOException {
+
+	        MongodStarter starter = MongodStarter.getDefaultInstance();
+
+	       mongoExecutable = starter.prepare(new MongodConfigBuilder()
+					.version(Version.Main.DEVELOPMENT)
+					.net(new Net("localhost", 27028, Network.localhostIsIPv6()))
+					.build());
+	        mongoProcess = mongoExecutable.start();
+
+	        
+	    }
+
+	  
+	    public void shutdownDB() throws InterruptedException {
+	    	
+	    }
+
+
+	    
+	    @After
+	    public void tearDown() throws Exception {
+	    	mongoExecutable.stop();
+	        mongoProcess.stop();
+	        //template.dropCollection(Sample.class);
+	    }
+
+
+	    @Test
+	    public void testSave() {
+	    	ProductItem productItem = new ProductItem("1", "Jungle Book", new Price("13.49","USD"));
+	        repoImpl.save(productItem);
+
+	        DBObject dbObject=db.getCollection("productItem").findOne(new BasicDBObject("_id","1"));
+	        repoImpl.findByProductId("1")
+
+	        assertNotNull(dbObject);
+	    }
+
+	    @Test
+	    public void testFindById() {/*
+	   
+			DBCollection col = db.createCollection("testCol", new BasicDBObject());
+			col.save(new BasicDBObject("testDoc", new Date()));
+
+
+	        // Setup Test Data
+	        List<Sample> samples = Arrays.asList(
+	                new Sample("TEST", "1"), new Sample("TEST", "25"),
+	                new Sample("TEST2", "66"), new Sample("TEST2", "99"));
+
+	        for (Sample sample : samples) {
+	            template.save(sample);
+	        }
+
+	        // Execute Test
+	        List<Sample> matches = repoImpl.findByKey("TEST");
+
+	        // Note: Since our test data (populateDummies) have only 2
+	        // records with key "TEST", this should be 2
+	        assertEquals("Expected only two samples with key TEST, but there are "
+	                + matches.size(), 2, matches.size());
+	    */}
+
+}
+
+
+

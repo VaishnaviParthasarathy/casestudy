@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Implementation-Title: myRetail
+Implementation-Version: 0.0.1-SNAPSHOT
+Built-By: vijayarajm
+Implementation-Vendor-Id: com.target
+Build-Jdk: 1.8.0_131
+Implementation-URL: https://projects.spring.io/spring-boot/#/spring-bo
+ ot-starter-parent/myRetail
+Created-By: Maven Integration for Eclipse
+

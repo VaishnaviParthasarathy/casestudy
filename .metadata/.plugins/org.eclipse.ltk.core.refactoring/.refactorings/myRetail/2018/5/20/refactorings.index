@@ -1,0 +1,20 @@
+1526572319761	Rename resource 'Product.rtf'
+1526572532747	Move 'Product.json' to 'resources'
+1526572967389	Delete element
+1526573169141	Delete element
+1526573202261	Rename resource 'Product.json'
+1526585183932	Delete element
+1526586375970	Rename package 'com.target.myRetail.resource'
+1526586618643	Rename type 'ProductItemController'
+1526586709691	Rename field 'userService'
+1526587043621	Rename type 'ProductRepository'
+1526587150649	Rename type 'Price'
+1526588571321	Rename field 'productd'
+1526590272474	Rename type 'ProductPriceRepository'
+1526590621135	Rename type 'ProductPrice'
+1526591671932	Rename type 'ProductRepository'
+1526591966068	Rename field 'current_price'
+1526592702987	Rename field 'id'
+1526594997287	Rename field '_id'
+1526602836835	Delete elements
+1526614105755	Rename method 'addProduct'

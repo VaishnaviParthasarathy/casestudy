@@ -1,0 +1,5 @@
+package com.target.myRetail.Util;
+
+public class JsonToPojo {
+
+}
