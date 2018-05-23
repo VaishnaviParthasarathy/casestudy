@@ -1,9 +1,0 @@
-package com.target.myRetail.ProductItem;
-
-import org.springframework.data.mongodb.repository.MongoRepository;
-
-
-
-public interface ProductRepository extends MongoRepository<ProductItem, String> {
-
-}
